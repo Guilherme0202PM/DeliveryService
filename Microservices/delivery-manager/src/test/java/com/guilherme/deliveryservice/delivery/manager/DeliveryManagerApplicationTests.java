@@ -1,0 +1,13 @@
+package com.guilherme.deliveryservice.delivery.manager;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class DeliveryManagerApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
