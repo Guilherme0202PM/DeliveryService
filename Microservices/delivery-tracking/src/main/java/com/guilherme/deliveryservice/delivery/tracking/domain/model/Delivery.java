@@ -52,18 +52,28 @@ public class Delivery {
     public UUID addItem(String name,int quantity){
         Item item = Item.brandNew(name, quantity);
         items.add(item);
+        calculateTotalItems();
         return  item.getId();
     }
 
     public void removeItem(UUID itemID){
         items.removeIf(item -> item.getId().equals(itemID));
+        calculateTotalItems();
+
     }
 
     public void removeItems(){
         items.clear();
+        calculateTotalItems();
+
     }
 
     public  List<Item> getItems(){
         return  Collections.unmodifiableList(this.items);
+    }
+
+    private void calculateTotalItems(){
+        int totalItems = getItems().stream().mapToInt(Item::getQuantity).sum();
+        setTotalItems(totalItems);
     }
 }
