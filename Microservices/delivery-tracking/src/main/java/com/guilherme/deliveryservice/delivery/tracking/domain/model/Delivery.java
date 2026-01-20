@@ -68,6 +68,28 @@ public class Delivery {
 
     }
 
+    public void changeItemQuantity(UUID itemId, int quantity){
+        Item item = getItems().stream().filter(i -> i.getId().equals(itemId)).findFirst().orElseThrow();
+        item.setQuantity(quantity);
+        calculateTotalItems();
+    }
+
+    public void place(){
+        this.setStatus(DeliveryStatus.WAITING_FOR_COURIER);
+        this.setPlaceAd(OffsetDateTime.now());
+    }
+
+    public void pickUp(UUID courierId){
+        this.setCourierId(courierId);
+        this.setStatus(DeliveryStatus.IN_TRANSIT);
+        this.setAssingnedAt(OffsetDateTime.now());
+    }
+
+    public void marksAsDelivery(){
+        this.setStatus(DeliveryStatus.DELIVERY);
+        this.setFulfilledAt(OffsetDateTime.now());
+    }
+
     public  List<Item> getItems(){
         return  Collections.unmodifiableList(this.items);
     }

@@ -16,6 +16,8 @@ public class Item {
     private String name;
     private Integer quantity;
 
+    @Setter(AccessLevel.PACKAGE)
+
     static Item brandNew(String name, Integer quantity){
         Item item = new Item();
         item.setId(UUID.randomUUID());
