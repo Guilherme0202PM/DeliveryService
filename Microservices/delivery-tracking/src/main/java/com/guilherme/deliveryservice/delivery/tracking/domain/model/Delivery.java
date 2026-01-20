@@ -8,6 +8,8 @@ public class Delivery {
     private UUID id;
     private UUID courierId;
 
+    private DeliveryStatus Status;
+
     private OffsetDateTime placedAt;
     private OffsetDateTime assignedAt;
     private OffsetDateTime expectedDeliveryAt;
