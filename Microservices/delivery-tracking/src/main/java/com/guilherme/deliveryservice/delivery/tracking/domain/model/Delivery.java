@@ -76,7 +76,7 @@ public class Delivery {
     }
 
     public void place() {
-        verifyCa
+        verifyIfCanBePlaced();
         this.setStatus(DeliveryStatus.WAITING_FOR_COURIER);
         this.setPlaceAd(OffsetDateTime.now());
     }
