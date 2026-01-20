@@ -28,7 +28,7 @@ public class Delivery {
     private OffsetDateTime expectedDeliveryAt;
     private OffsetDateTime fulfilledAt;
 
-    private BigDecimal distanceFree;
+    private BigDecimal distanceFee;
     private BigDecimal courierPayout;
     private BigDecimal totalCost;
 
@@ -47,7 +47,7 @@ public class Delivery {
         delivery.setTotalItems(0);
         delivery.setTotalCost(BigDecimal.ZERO);
         delivery.setCourierPayout(BigDecimal.ZERO);
-        delivery.setDistanceFree(BigDecimal.ZERO);
+        delivery.setDistanceFee(BigDecimal.ZERO);
         return delivery;
     }
 
@@ -90,13 +90,13 @@ public class Delivery {
     public void place() {
         verifyIfCanBePlaced();
         this.setStatus(DeliveryStatus.WAITING_FOR_COURIER);
-        this.setPlaceAd(OffsetDateTime.now());
+        this.setPlacedAt(OffsetDateTime.now());
     }
 
     public void pickUp(UUID courierId) {
         this.setCourierId(courierId);
         this.setStatus(DeliveryStatus.IN_TRANSIT);
-        this.setAssingnedAt(OffsetDateTime.now());
+        this.setAssignedAt(OffsetDateTime.now());
     }
 
     public void marksAsDelivery() {
