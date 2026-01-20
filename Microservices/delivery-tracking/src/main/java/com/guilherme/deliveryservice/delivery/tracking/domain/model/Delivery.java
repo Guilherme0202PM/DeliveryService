@@ -29,5 +29,8 @@ public class Delivery {
 
     private Integer totalItems;
 
+    private ContactPoint sender;
+    private ContactPoint recipient;
+
     private List<Item> itens = new ArrayList<>();
 }
