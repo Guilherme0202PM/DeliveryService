@@ -6,7 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import lombok.EqualsAndHashCode;
+
+
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Delivery {
+
+    @EqualsAndHashCode.Include
     private UUID id;
     private UUID courierId;
 
