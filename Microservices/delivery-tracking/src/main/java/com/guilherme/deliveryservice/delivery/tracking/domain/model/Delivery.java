@@ -70,6 +70,17 @@ public class Delivery {
 
     }
 
+    public void editPreparationDetails(PreparationDetails details){
+        verifyIfCanBeEdited();
+
+        setSender(details.getSender());
+        setRecipient(details.getRecipient());
+        setDistanceFee(details.getDistanceFee());
+        setCourierPayout(details.getCourierPayout());
+        setExpectedDeliveryAt(OffsetDateTime.now().plus(details.getExpectedDeliveryTime()));
+        setTotalCost(this.getDistanceFee().add(this.getCourierPayout()));
+    }
+
     public void changeItemQuantity(UUID itemId, int quantity) {
         Item item = getItems().stream().filter(i -> i.getId().equals(itemId)).findFirst().orElseThrow();
         item.setQuantity(quantity);
@@ -109,6 +120,13 @@ public class Delivery {
         if (!getStatus().equals(DeliveryStatus.DRAFT)) {
             throw new DomainException();
         }
+    }
+
+    private void verifyIfCanBeEdited(){
+        if(!getStatus().equals(DeliveryStatus.DRAFT)){
+            throw  new DomainException();
+        }
+
     }
 
     private boolean isFilled(){
