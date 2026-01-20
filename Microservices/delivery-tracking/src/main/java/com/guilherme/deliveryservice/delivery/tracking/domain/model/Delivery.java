@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+import com.guilherme.deliveryservice.delivery.tracking.domain.exception.DomainException;
 import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
@@ -38,7 +39,7 @@ public class Delivery {
     private List<Item> items = new ArrayList<>();
 
     //factory
-    public static Delivery draft(){
+    public static Delivery draft() {
         Delivery delivery = new Delivery();
         delivery.setId(UUID.randomUUID());
         delivery.setStatus(DeliveryStatus.DRAFT);
@@ -49,53 +50,69 @@ public class Delivery {
         return delivery;
     }
 
-    public UUID addItem(String name,int quantity){
+    public UUID addItem(String name, int quantity) {
         Item item = Item.brandNew(name, quantity);
         items.add(item);
         calculateTotalItems();
-        return  item.getId();
+        return item.getId();
     }
 
-    public void removeItem(UUID itemID){
+    public void removeItem(UUID itemID) {
         items.removeIf(item -> item.getId().equals(itemID));
         calculateTotalItems();
 
     }
 
-    public void removeItems(){
+    public void removeItems() {
         items.clear();
         calculateTotalItems();
 
     }
 
-    public void changeItemQuantity(UUID itemId, int quantity){
+    public void changeItemQuantity(UUID itemId, int quantity) {
         Item item = getItems().stream().filter(i -> i.getId().equals(itemId)).findFirst().orElseThrow();
         item.setQuantity(quantity);
         calculateTotalItems();
     }
 
-    public void place(){
+    public void place() {
+        verifyCa
         this.setStatus(DeliveryStatus.WAITING_FOR_COURIER);
         this.setPlaceAd(OffsetDateTime.now());
     }
 
-    public void pickUp(UUID courierId){
+    public void pickUp(UUID courierId) {
         this.setCourierId(courierId);
         this.setStatus(DeliveryStatus.IN_TRANSIT);
         this.setAssingnedAt(OffsetDateTime.now());
     }
 
-    public void marksAsDelivery(){
+    public void marksAsDelivery() {
         this.setStatus(DeliveryStatus.DELIVERY);
         this.setFulfilledAt(OffsetDateTime.now());
     }
 
-    public  List<Item> getItems(){
-        return  Collections.unmodifiableList(this.items);
+    public List<Item> getItems() {
+        return Collections.unmodifiableList(this.items);
     }
 
-    private void calculateTotalItems(){
+    private void calculateTotalItems() {
         int totalItems = getItems().stream().mapToInt(Item::getQuantity).sum();
         setTotalItems(totalItems);
+    }
+
+    private void verifyIfCanBePlaced() {
+        if (!isFilled()) {
+            throw new DomainException();
+        }
+        if (!getStatus().equals(DeliveryStatus.DRAFT)) {
+            throw new DomainException();
+        }
+    }
+
+    private boolean isFilled(){
+        return this.getSender() != null
+                && this.getRecipient() !=null
+                && this.getTotalCost() !=null;
     }
 }
