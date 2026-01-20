@@ -1,4 +1,8 @@
 package com.guilherme.deliveryservice.delivery.tracking.domain.model;
 
-public class DeliveryStatus {
+public enum DeliveryStatus {
+    DRAFT,
+    WAITING_FOR_COURIER,
+    IN_TRANSIT,
+    DELIVERY;
 }
