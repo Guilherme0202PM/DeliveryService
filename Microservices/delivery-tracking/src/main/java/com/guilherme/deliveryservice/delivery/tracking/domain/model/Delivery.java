@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Delivery {
 
@@ -16,7 +18,7 @@ public class Delivery {
     private UUID id;
     private UUID courierId;
 
-    private DeliveryStatus Status;
+    private DeliveryStatus status;
 
     private OffsetDateTime placedAt;
     private OffsetDateTime assignedAt;
@@ -25,7 +27,7 @@ public class Delivery {
 
     private BigDecimal distanceFree;
     private BigDecimal courierPayout;
-    private BigDecimal totalCosy;
+    private BigDecimal totalCost;
 
     private Integer totalItems;
 
@@ -33,4 +35,17 @@ public class Delivery {
     private ContactPoint recipient;
 
     private List<Item> itens = new ArrayList<>();
+
+    //factory
+    public static Delivery draft(){
+        Delivery delivery = new Delivery();
+        delivery.id = UUID.randomUUID();
+        delivery.status = DeliveryStatus.DRAFT;
+        delivery.totalItems = 0;
+        delivery.totalCost = BigDecimal.ZERO;
+        delivery.courierPayout = BigDecimal.ZERO;
+        delivery.distanceFree = BigDecimal.ZERO;
+        return delivery;
+    }
+
 }
