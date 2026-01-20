@@ -49,6 +49,20 @@ public class Delivery {
         return delivery;
     }
 
+    public UUID addItem(String name,int quantity){
+        Item item = Item.brandNew(name, quantity);
+        items.add(item);
+        return  item.getId();
+    }
+
+    public void removeItem(UUID itemID){
+        items.removeIf(item -> item.getId().equals(itemID));
+    }
+
+    public void removeItems(){
+        items.clear();
+    }
+
     public  List<Item> getItems(){
         return  Collections.unmodifiableList(this.items);
     }
