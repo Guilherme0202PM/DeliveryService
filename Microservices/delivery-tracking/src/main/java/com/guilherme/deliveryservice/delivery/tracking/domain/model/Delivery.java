@@ -3,6 +3,7 @@ package com.guilherme.deliveryservice.delivery.tracking.domain.model;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,7 +35,7 @@ public class Delivery {
     private ContactPoint sender;
     private ContactPoint recipient;
 
-    private List<Item> itens = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
 
     //factory
     public static Delivery draft(){
@@ -48,5 +49,7 @@ public class Delivery {
         return delivery;
     }
 
-
+    public  List<Item> getItems(){
+        return  Collections.unmodifiableList(this.items);
+    }
 }
