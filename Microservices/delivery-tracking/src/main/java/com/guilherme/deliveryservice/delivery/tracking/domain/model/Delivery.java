@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Setter(AccessLevel.PRIVATE)
+@Getter
 public class Delivery {
 
     @EqualsAndHashCode.Include
@@ -39,13 +39,14 @@ public class Delivery {
     //factory
     public static Delivery draft(){
         Delivery delivery = new Delivery();
-        delivery.id = UUID.randomUUID();
-        delivery.status = DeliveryStatus.DRAFT;
-        delivery.totalItems = 0;
-        delivery.totalCost = BigDecimal.ZERO;
-        delivery.courierPayout = BigDecimal.ZERO;
-        delivery.distanceFree = BigDecimal.ZERO;
+        delivery.setId(UUID.randomUUID());
+        delivery.setStatus(DeliveryStatus.DRAFT);
+        delivery.setTotalItems(0);
+        delivery.setTotalCost(BigDecimal.ZERO);
+        delivery.setCourierPayout(BigDecimal.ZERO);
+        delivery.setDistanceFree(BigDecimal.ZERO);
         return delivery;
     }
+
 
 }

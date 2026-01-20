@@ -2,13 +2,13 @@ package com.guilherme.deliveryservice.delivery.tracking.domain.model;
 
 import java.util.UUID;
 
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Setter(AccessLevel.PRIVATE)
+@Getter
+
 
 public class Item {
     @EqualsAndHashCode.Include
@@ -18,9 +18,9 @@ public class Item {
 
     static Item brandNew(String name, Integer quantity){
         Item item = new Item();
-        item.id = UUID.randomUUID();
-        item.name = name;
-        item.quantity = quantity;
+        item.setId(UUID.randomUUID());
+        item.setName(name);
+        item.setQuantity(quantity);
         return item;
     }
 }

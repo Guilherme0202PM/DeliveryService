@@ -2,10 +2,12 @@ package com.guilherme.deliveryservice.delivery.tracking.domain.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 @EqualsAndHashCode
 @AllArgsConstructor
 @Builder
+@Getter
 public class ContactPoint {
     private String zipCode;
     private String street;
