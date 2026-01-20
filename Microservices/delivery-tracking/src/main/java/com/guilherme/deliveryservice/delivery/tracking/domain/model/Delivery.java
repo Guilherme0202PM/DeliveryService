@@ -2,6 +2,8 @@ package com.guilherme.deliveryservice.delivery.tracking.domain.model;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Delivery {
@@ -20,4 +22,6 @@ public class Delivery {
     private BigDecimal totalCosy;
 
     private Integer totalItems;
+
+    private List<Item> itens = new ArrayList<>();
 }
