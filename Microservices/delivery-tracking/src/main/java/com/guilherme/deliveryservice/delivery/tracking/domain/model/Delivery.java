@@ -1,6 +1,7 @@
 package com.guilherme.deliveryservice.delivery.tracking.domain.model;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -115,4 +116,17 @@ public class Delivery {
                 && this.getRecipient() !=null
                 && this.getTotalCost() !=null;
     }
+
+    //Inner  class
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class PreparationDetails{
+        private ContactPoint sender;
+        private ContactPoint recipient;
+        private BigDecimal distanceFee;
+        private BigDecimal courierPayout;
+        private Duration expectedDeliveryTime;
+    }
+
 }
