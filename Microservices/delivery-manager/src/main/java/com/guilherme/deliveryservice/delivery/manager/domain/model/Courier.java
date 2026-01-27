@@ -34,4 +34,15 @@ public class Courier {
     public List<AssignedDelivery> getPendingDeliveries(){
         return Collections.unmodifiableList(this.pendingDeliveries);
     }
+
+    public static Courier brandNew(String name, String phone){
+        Courier courier = new Courier();
+        courier.setId(UUID.randomUUID());
+        courier.setName(name);
+        courier.setPhone(phone);
+        courier.setPendingDeliveriesQuantity(0);
+        courier.setFulfilledDeliveriesQuantity(0);
+
+        return  courier;
+    }
 }
