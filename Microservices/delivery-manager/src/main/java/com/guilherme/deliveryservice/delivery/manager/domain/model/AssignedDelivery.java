@@ -16,4 +16,11 @@ public class AssignedDelivery {
     private UUID id;
 
     private OffsetDateTime assignedAt;
+
+    static  AssignedDelivery pending(UUID deliveryId){
+        AssignedDelivery delivery = new AssignedDelivery();
+        delivery.setId(deliveryId);
+        delivery.setAssignedAt(OffsetDateTime.now());
+        return delivery;
+    }
 }
