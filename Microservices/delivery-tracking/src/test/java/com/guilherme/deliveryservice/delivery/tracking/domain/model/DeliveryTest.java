@@ -1,5 +1,6 @@
 package com.guilherme.deliveryservice.delivery.tracking.domain.model;
 
+import com.guilherme.deliveryservice.delivery.tracking.domain.exception.DomainException;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DeliveryTest {
     @Test
-    public void shouldChangeStatusToPlaced(){
+    public void shouldChangeToPlaced(){
         Delivery delivery = Delivery.draft();
 
         delivery.editPreparationDetails(createdValidPreparationDetails());
@@ -17,6 +18,18 @@ class DeliveryTest {
 
         assertEquals(DeliveryStatus.WAITING_FOR_COURIER, delivery.getStatus());
         assertNotNull(delivery.getPlacedAt());
+    }
+
+    @Test
+    public  void shouldNotPlace(){
+        Delivery delivery = Delivery.draft();
+
+        assertThrows(DomainException.class, ()->{
+            delivery.place();
+        });
+
+        assertEquals(DeliveryStatus.DRAFT, delivery.getStatus());
+        assertNull(delivery.getPlacedAt());
     }
 
     private Delivery.PreparationDetails createdValidPreparationDetails(){
