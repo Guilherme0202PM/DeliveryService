@@ -125,7 +125,7 @@ public class Delivery {
     }
 
     public void marksAsDelivery() {
-        this.changeStatusTo(DeliveryStatus.DELIVERY);
+        this.changeStatusTo(DeliveryStatus.DELIVERED);
         this.setFulfilledAt(OffsetDateTime.now());
     }
 
