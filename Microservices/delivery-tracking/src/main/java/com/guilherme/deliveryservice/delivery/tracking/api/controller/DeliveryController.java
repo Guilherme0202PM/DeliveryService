@@ -14,6 +14,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.hateoas.PagedModel;
 
 import java.util.UUID;
 
@@ -37,7 +38,6 @@ public class DeliveryController {
                          @RequestBody @Valid DeliveryInput input) {
         return deliveryPreparationService.edit(deliveryId, input);
     }
-
 
     @GetMapping
     public PagedModel<Delivery> findAll(@PageableDefault Pageable pageable) {

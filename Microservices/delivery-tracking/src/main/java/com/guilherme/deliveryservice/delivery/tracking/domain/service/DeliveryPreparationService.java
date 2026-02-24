@@ -28,14 +28,16 @@ public class DeliveryPreparationService {
         return deliveryRepository.saveAndFlush(delivery);
     }
 
+
     @Transactional
-    public void edit(UUID deliveryId, DeliveryInput input) {
+    public Delivery edit(UUID deliveryId, DeliveryInput input) {
         Delivery delivery = deliveryRepository.findById(deliveryId)
                 .orElseThrow(() -> new DomainException());
 
         delivery.removeItems();
         handlePreparation(input, delivery);
-        return deliveryRepository.savaAndFlush(delivery);
+
+        return deliveryRepository.saveAndFlush(delivery);
     }
 
     private void handlePreparation(DeliveryInput input, Delivery delivery) {
@@ -75,7 +77,7 @@ public class DeliveryPreparationService {
 
         delivery.editPreparationDetails(preparationDetails);
 
-        for (ItemInput item : input.getItems()){
+        for (ItemInput itemInput : input.getItems()) {
             delivery.addItem(itemInput.getName(), itemInput.getQuantity());
         }
     }
