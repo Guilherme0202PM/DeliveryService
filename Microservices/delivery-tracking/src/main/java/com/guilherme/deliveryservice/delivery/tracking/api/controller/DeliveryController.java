@@ -1,5 +1,7 @@
 package com.guilherme.deliveryservice.delivery.tracking.api.controller;
 
+import com.guilherme.deliveryservice.delivery.tracking.api.model.DeliveryInput;
+import com.guilherme.deliveryservice.delivery.tracking.domain.model.Delivery;
 import com.guilherme.deliveryservice.delivery.tracking.domain.service.DeliveryPreparationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
