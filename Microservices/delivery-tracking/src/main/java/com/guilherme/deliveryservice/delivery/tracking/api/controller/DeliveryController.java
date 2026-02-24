@@ -4,6 +4,7 @@ import com.guilherme.deliveryservice.delivery.tracking.api.model.CourierIdInput;
 import com.guilherme.deliveryservice.delivery.tracking.api.model.DeliveryInput;
 import com.guilherme.deliveryservice.delivery.tracking.domain.model.Delivery;
 import com.guilherme.deliveryservice.delivery.tracking.domain.repository.DeliveryRepository;
+import com.guilherme.deliveryservice.delivery.tracking.domain.service.DeliveryCheckpointService;
 import com.guilherme.deliveryservice.delivery.tracking.domain.service.DeliveryPreparationService;
 
 import jakarta.validation.Valid;
@@ -22,6 +23,7 @@ import java.util.UUID;
 public class DeliveryController {
 
     private final DeliveryPreparationService deliveryPreparationService;
+    private final DeliveryCheckpointService deliveryCheckpointService;
     private final DeliveryRepository deliveryRepository;
 
     @PostMapping
@@ -51,18 +53,18 @@ public class DeliveryController {
 
     @PostMapping("/{deliveryId}/placement")
     public void place(@PathVariable UUID deliveryId) {
-
+        deliveryCheckpointService.place(deliveryId);
     }
 
     @PostMapping("/{deliveryId}/pickup")
     public void pickup(@PathVariable UUID deliveryId,
                        @Valid @RequestBody CourierIdInput input) {
-
+        deliveryCheckpointService.pickUp(deliveryId, input.getCourierId());
     }
 
     @PostMapping("/{deliveryId}/completion")
     public void complete(@PathVariable UUID deliveryId) {
-
+        deliveryCheckpointService.complete(deliveryId);
     }
 
 }
