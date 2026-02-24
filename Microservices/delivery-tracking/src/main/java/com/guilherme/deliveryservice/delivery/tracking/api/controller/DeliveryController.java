@@ -1,12 +1,18 @@
 package com.guilherme.deliveryservice.delivery.tracking.api.controller;
 
+import com.guilherme.deliveryservice.delivery.tracking.api.model.CourierIdInput;
 import com.guilherme.deliveryservice.delivery.tracking.api.model.DeliveryInput;
 import com.guilherme.deliveryservice.delivery.tracking.domain.model.Delivery;
+import com.guilherme.deliveryservice.delivery.tracking.domain.repository.DeliveryRepository;
 import com.guilherme.deliveryservice.delivery.tracking.domain.service.DeliveryPreparationService;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.UUID;
 
@@ -16,6 +22,7 @@ import java.util.UUID;
 public class DeliveryController {
 
     private final DeliveryPreparationService deliveryPreparationService;
+    private final DeliveryRepository deliveryRepository;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -28,5 +35,35 @@ public class DeliveryController {
                          @RequestBody @Valid DeliveryInput input) {
         return deliveryPreparationService.edit(deliveryId, input);
     }
+
+
+    @GetMapping
+    public PagedModel<Delivery> findAll(@PageableDefault Pageable pageable) {
+        return new PagedModel<>(deliveryRepository.findAll(pageable));
+    }
+
+    @GetMapping("/{deliveryId}")
+    public Delivery findById(@PathVariable UUID deliveryId) {
+        return deliveryRepository.findById(deliveryId)
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    @PostMapping("/{deliveryId}/placement")
+    public void place(@PathVariable UUID deliveryId) {
+
+    }
+
+    @PostMapping("/{deliveryId}/pickup")
+    public void pickup(@PathVariable UUID deliveryId,
+                       @Valid @RequestBody CourierIdInput input) {
+
+    }
+
+    @PostMapping("/{deliveryId}/completion")
+    public void complete(@PathVariable UUID deliveryId) {
+
+    }
+
 }
 
