@@ -1,7 +1,9 @@
 package com.guilherme.deliveryservice.delivery.manager.api.controller;
 
+import com.guilherme.deliveryservice.delivery.manager.api.model.CourierInput;
 import com.guilherme.deliveryservice.delivery.manager.domain.model.Courier;
 import com.guilherme.deliveryservice.delivery.manager.domain.repository.CourierRepository;
+import com.guilherme.deliveryservice.delivery.manager.domain.service.CourierRegistrationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
